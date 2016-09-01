@@ -1,0 +1,56 @@
+{
+    "id": "6CFB6607-8231-40D0-B9B0-A8A460A4D46D",
+    "name": "extractZipFileOnRemote",
+    "friendlyName": "Extract Zip File On Remote Computer",
+    "description": "Task extracts zip file on remote computer to a folder a that computer.",
+	"helpMarkDown": "[More Information](https://github.com/jeblankenship/vsts-extractZipRemote-task#readme)",
+    "category": "Utility",
+    "visibility": [
+        "Build",
+		"Release"
+    ],
+    "author": "James Blankenship",
+    "version": {
+        "Major": 0,
+        "Minor": 1,
+        "Patch": 1
+    },
+    "minimumAgentVersion": "1.92.0",
+    "inputs": [
+        {
+            "name": "server",
+            "type": "string",
+            "label": "Server",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Server to run command on."
+        },
+        {
+            "name": "zipFile",
+            "type": "filePath",
+            "label": "Zip File",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Zip file to extract."
+        },
+        {
+            "name": "destination",
+            "type": "filePath",
+            "label": "Destination",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Folder to extract files to."
+        }
+    ],
+    "instanceNameFormat": "Extract Zip File On Remote Computer",
+    "execution": {
+        "PowerShell": {
+            "target": "$(currentDirectory)\\extract-zipRemote.ps1",
+            "argumentFormat": "",
+            "workingDirectory": "$(System.DefaultWorkingDirectory)"
+		}
+    },
+    "messages": {
+        "NoFiles": "Zip file missing."
+    }
+}
