@@ -1,6 +1,6 @@
 {
   "name": "docsCode.vsts-extractZipRemote-task",
-  "version": "0.1.1",
+  "version": "0.1.7",
   "description": "Build task for VS Team Services that extracts zip file on remote computer to a folder a that computer.",
   "author": "James Blankenship",
   "license": "MIT",

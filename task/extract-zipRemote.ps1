@@ -22,12 +22,48 @@ $command = {
 
     if(Test-Path $destination){
         #delete existing content
-        Write-Verbose "Removing existing content from $destination"
-        Remove-Item $destination\* -Recurse -Force
+        $count = 0;
+        $retry = $true;
+        Write-Host "Removing existing content from $destination"
+        do {
+            Try
+            {
+                Remove-Item $destination\* -Recurse -Force
+                $retry=$false;
+            }
+            Catch
+            {
+              $count += 1;
+              if($count -gt 3){
+                Throw $_.Exception
+              }
+              Write-Host "Content removal failed. Waiting to try again..."
+              Start-Sleep -Seconds 5
+              Write-Host "Attempting to remove content again..."
+            }
+        } while ($retry)
     }
-    Write-Verbose "Unziping file $zipFile to $destination"
-    [io.compression.zipfile]::ExtractToDirectory($zipFile, $destination)
-    Write-Verbose "Zip file extraction complete."
+    $count = 0;
+    $retry = $true;
+    Write-Host "Unziping file $zipFile to $destination"
+    do {
+        Try
+        {
+            [io.compression.zipfile]::ExtractToDirectory($zipFile, $destination)
+            Write-Host "Zip file extraction complete."
+            $retry=$false;
+        }
+        Catch
+        {
+          $count += 1;
+          if($count -gt 3){
+            Throw $_.Exception
+          }
+          Write-Host "Extraction failed. Waiting to try again..."
+          Start-Sleep -Seconds 5
+          Write-Host "Attempting to unzip file again..."
+        }
+    } while ($retry)
 }
 
 
