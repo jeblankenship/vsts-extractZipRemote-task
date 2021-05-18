@@ -13,7 +13,14 @@ npm install -g tfx-cli
 ```
 *restore VSCode to get tfx to work*
 
-#Build
+# Setup Typescript
 ```
 tsc --init
 ```
+
+# Build
+```
+tfx extension create --manifest-globs vss-extension.json
+```
+
+Updated my notes based on: https://www.andrewhoefling.com/Blog/Post/dev-ops-vsts-custom-build-task-extension
